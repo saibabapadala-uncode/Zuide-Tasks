@@ -103,10 +103,18 @@ const AppInner: React.FC = () => {
     setShowLogoutConfirm(true)
   }
 
-  const handleConfirmLogout = () => {
+  const handleConfirmLogout = async () => {
     setShowLogoutConfirm(false)
-    setShowDailyModal(true)
+    await logout()
+    presentToast({ message: 'You have been signed out.', duration: 2000, color: 'success', position: 'top' })
   }
+
+  // Wire AppHeader desktop logout button to the same confirmation dialog
+  useEffect(() => {
+    const handler = () => handleLogout()
+    window.addEventListener('trigger-logout', handler)
+    return () => window.removeEventListener('trigger-logout', handler)
+  }, [])
 
   if (!isInitialized) return <PageLoader />
 
