@@ -1,0 +1,26 @@
+[
+  {
+    "id": "att-001",
+    "taskId": "task-001",
+    "filename": "dashboard-wireframes-v1.pdf",
+    "originalName": "Dashboard Wireframes v1.pdf",
+    "fileSize": 2548000,
+    "fileType": "application/pdf",
+    "url": "/attachments/dashboard-wireframes-v1.pdf",
+    "uploadedBy": "emp-002",
+    "uploadedByName": "Maria Garcia",
+    "uploadedAt": "2026-05-14T10:30:00Z"
+  },
+  {
+    "id": "att-002",
+    "taskId": "task-004",
+    "filename": "api-docs.pdf",
+    "originalName": "API Documentation.pdf",
+    "fileSize": 1024000,
+    "fileType": "application/pdf",
+    "url": "/attachments/api-docs.pdf",
+    "uploadedBy": "emp-003",
+    "uploadedByName": "James Wilson",
+    "uploadedAt": "2026-06-10T09:00:00Z"
+  }
+]

@@ -1,0 +1,186 @@
+# ── Node.js ──────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ── Build output ──────────────────────────────────────────────────────────────
+dist/
+dist-ssr/
+build/
+.vite/
+*.local
+
+# ── TypeScript ────────────────────────────────────────────────────────────────
+*.tsbuildinfo
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+*.pem
+
+# ── Capacitor ─────────────────────────────────────────────────────────────────
+# Copied web assets (rebuilt on every `cap sync`)
+android/app/src/main/assets/public/
+ios/App/App/public/
+
+# Generated Capacitor config files
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+ios/App/App/config.xml
+
+# ── Android platform ──────────────────────────────────────────────────────────
+# Build artifacts
+android/build/
+android/app/build/
+android/.gradle/
+android/captures/
+android/.navigation/
+android/out/
+android/gen/
+android/bin/
+
+# Android local config (contains machine-specific SDK path)
+android/local.properties
+
+# Android compiled files
+android/**/*.class
+android/**/*.dex
+android/**/*.apk
+android/**/*.aab
+android/**/*.aar
+android/**/*.ap_
+android/**/*.hprof
+
+# IntelliJ / Android Studio project files
+android/.idea/workspace.xml
+android/.idea/tasks.xml
+android/.idea/gradle.xml
+android/.idea/assetWizardSettings.xml
+android/.idea/dictionaries/
+android/.idea/libraries/
+android/.idea/caches/
+android/.idea/modules.xml
+android/.idea/navEditor.xml
+android/*.iml
+android/**/*.iml
+
+# Native build
+android/.externalNativeBuild/
+android/.cxx/
+
+# Cordova plugins copied by Capacitor
+android/capacitor-cordova-android-plugins/
+
+# Log files
+android/**/*.log
+
+# Proguard
+android/proguard/
+
+# Keystore files — keep these out of version control
+# Uncomment if you store keystores here:
+# android/app/*.jks
+# android/app/*.keystore
+
+# ── iOS platform ──────────────────────────────────────────────────────────────
+# CocoaPods
+ios/App/Pods/
+ios/App/Podfile.lock
+
+# Xcode user-specific files
+ios/App/*.xcworkspace/xcuserdata/
+ios/App/*.xcodeproj/xcuserdata/
+ios/App/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/**/*.xcuserstate
+ios/**/*.moved-aside
+ios/**/*.hmap
+ios/**/*.ipa
+ios/**/*.dSYM.zip
+ios/**/*.dSYM
+
+# Xcode derived data and archives
+DerivedData/
+ios/App/DerivedData/
+*.xccheckout
+*.xcscmblueprint
+
+# fastlane
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/
+ios/fastlane/test_output/
+
+# ── Test / coverage ───────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# ── IDE & editor ──────────────────────────────────────────────────────────────
+# JetBrains IDEs (IntelliJ, WebStorm, Android Studio)
+.idea/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# VSCode — ignore user-specific settings, keep shared workspace config
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ── OS generated files ────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.log
+*.pid
+*.seed
+*.pid.lock
+.cache/
+tmp/
+temp/
+.tmp/
+storybook-static/

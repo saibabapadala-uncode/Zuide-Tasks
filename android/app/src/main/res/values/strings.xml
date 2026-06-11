@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Zuide Tasks</string>
+    <string name="title_activity_main">Zuide Tasks</string>
+    <string name="package_name">com.zuide.tasks</string>
+    <string name="custom_url_scheme">com.zuide.tasks</string>
+</resources>

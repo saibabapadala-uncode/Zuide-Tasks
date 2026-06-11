@@ -1,0 +1,16 @@
+{
+  "theme": "light",
+  "language": "en",
+  "timezone": "America/New_York",
+  "dateFormat": "MM/DD/YYYY",
+  "notifications": {
+    "newTask": true,
+    "approvals": true,
+    "rejections": true,
+    "comments": true,
+    "deadlineReminders": true,
+    "announcements": true,
+    "browserNotifications": false,
+    "pushNotifications": true
+  }
+}

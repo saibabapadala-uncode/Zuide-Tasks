@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   Ionic CSS Variables — Light Mode (default)
+   ───────────────────────────────────────────── */
+:root {
+  --ion-font-family: 'Inter', system-ui, sans-serif;
+
+  /* Primary color */
+  --ion-color-primary:          #4f46e5;
+  --ion-color-primary-rgb:      79, 70, 229;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade:    #4338ca;
+  --ion-color-primary-tint:     #6366f1;
+
+  /* Secondary */
+  --ion-color-secondary:        #06b6d4;
+  --ion-color-secondary-rgb:    6, 182, 212;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade:  #0597b0;
+  --ion-color-secondary-tint:   #22d3ee;
+
+  /* Success */
+  --ion-color-success:          #059669;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-shade:    #047857;
+  --ion-color-success-tint:     #10b981;
+
+  /* Warning */
+  --ion-color-warning:          #d97706;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-shade:    #b45309;
+  --ion-color-warning-tint:     #f59e0b;
+
+  /* Danger */
+  --ion-color-danger:           #dc2626;
+  --ion-color-danger-contrast:  #ffffff;
+  --ion-color-danger-shade:     #b91c1c;
+  --ion-color-danger-tint:      #ef4444;
+
+  /* Backgrounds */
+  --ion-background-color:       #f8fafc;
+  --ion-background-color-rgb:   248, 250, 252;
+  --ion-text-color:             #0f172a;
+  --ion-text-color-rgb:         15, 23, 42;
+
+  /* Toolbar/surfaces */
+  --ion-toolbar-background:     #ffffff;
+  --ion-toolbar-border-color:   #e2e8f0;
+  --ion-item-background:        #ffffff;
+  --ion-card-background:        #ffffff;
+  --ion-border-color:           #e2e8f0;
+
+  /* Tab bar */
+  --ion-tab-bar-background:     #ffffff;
+  --ion-tab-bar-border-color:   #e2e8f0;
+}
+
+/* ─────────────────────────────────────────────
+   Ionic CSS Variables — Dark Mode
+   ───────────────────────────────────────────── */
+body.dark {
+  --ion-background-color:       #0f172a;
+  --ion-background-color-rgb:   15, 23, 42;
+  --ion-text-color:             #f1f5f9;
+  --ion-text-color-rgb:         241, 245, 249;
+
+  --ion-toolbar-background:     #1e293b;
+  --ion-toolbar-border-color:   #334155;
+  --ion-item-background:        #1e293b;
+  --ion-card-background:        #1e293b;
+  --ion-border-color:           #334155;
+
+  --ion-tab-bar-background:     #1e293b;
+  --ion-tab-bar-border-color:   #334155;
+
+  --ion-color-step-50:   #1e293b;
+  --ion-color-step-100:  #253347;
+  --ion-color-step-150:  #2c3e53;
+  --ion-color-step-200:  #334155;
+  --ion-color-step-250:  #3a4d68;
+  --ion-color-step-300:  #475569;
+  --ion-color-step-400:  #64748b;
+  --ion-color-step-500:  #94a3b8;
+  --ion-color-step-600:  #cbd5e1;
+  --ion-color-step-700:  #e2e8f0;
+  --ion-color-step-800:  #f1f5f9;
+  --ion-color-step-900:  #f8fafc;
+  --ion-color-step-950:  #ffffff;
+}
+
+/* ─────────────────────────────────────────────
+   Tailwind base layer overrides
+   ───────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--ion-background-color);
+    color: var(--ion-text-color);
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-600 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-400 dark:bg-gray-500; }
+}
+
+/* ─────────────────────────────────────────────
+   Tailwind component layer
+   ───────────────────────────────────────────── */
+@layer components {
+  /* Card */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700;
+  }
+  .stat-card {
+    @apply card p-5 flex items-center gap-4 hover:shadow-md transition-shadow cursor-default;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+  .btn-secondary {
+    @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  /* Form */
+  .input-field {
+    @apply w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors text-sm;
+  }
+
+  /* Badges */
+  .badge { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium; }
+  .priority-critical { @apply bg-red-100    text-red-800    dark:bg-red-900/30    dark:text-red-400; }
+  .priority-high     { @apply bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400; }
+  .priority-medium   { @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400; }
+  .priority-low      { @apply bg-green-100  text-green-800  dark:bg-green-900/30  dark:text-green-400; }
+
+  .status-pending     { @apply bg-gray-100   text-gray-700   dark:bg-gray-700    dark:text-gray-300; }
+  .status-in_progress { @apply bg-blue-100   text-blue-700   dark:bg-blue-900/30  dark:text-blue-400; }
+  .status-submitted   { @apply bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400; }
+  .status-approved    { @apply bg-green-100  text-green-700  dark:bg-green-900/30 dark:text-green-400; }
+  .status-rejected    { @apply bg-red-100    text-red-700    dark:bg-red-900/30   dark:text-red-400; }
+  .status-completed   { @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400; }
+
+  /* Table */
+  .table-header { @apply text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider py-3 px-4; }
+  .table-cell   { @apply py-4 px-4 text-sm text-gray-700 dark:text-gray-300; }
+  .table-row    { @apply border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors; }
+
+  /* Page */
+  .page-title    { @apply text-2xl font-bold text-gray-900 dark:text-white; }
+  .page-subtitle { @apply text-sm text-gray-500 dark:text-gray-400 mt-1; }
+}
+
+/* ─────────────────────────────────────────────
+   Ionic component overrides
+   ───────────────────────────────────────────── */
+
+/* Make IonContent background transparent so Tailwind bg classes work */
+ion-content {
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+ion-toolbar {
+  --background: var(--ion-toolbar-background);
+  --border-color: var(--ion-toolbar-border-color);
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+ion-header::after {
+  display: none; /* remove default bottom border — we handle it via CSS vars */
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: var(--ion-border-color);
+  --inner-border-width: 0;
+}
+
+ion-list {
+  --ion-item-background: transparent;
+  background: transparent;
+}
+
+ion-card {
+  --background: var(--ion-card-background);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  border: 1px solid var(--ion-border-color);
+  margin: 0;
+}
+
+ion-searchbar {
+  --background: var(--ion-item-background);
+  --border-radius: 0.75rem;
+  --box-shadow: none;
+  --border: 1px solid var(--ion-border-color);
+  padding: 0;
+}
+
+ion-segment {
+  --background: var(--ion-background-color);
+  border-radius: 0.75rem;
+}
+
+ion-segment-button {
+  --color: var(--ion-color-step-400);
+  --color-checked: var(--ion-color-primary);
+  --border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  min-height: 36px;
+  text-transform: none;
+}
+
+ion-badge {
+  font-weight: 600;
+  border-radius: 99px;
+  letter-spacing: 0;
+}
+
+ion-menu {
+  --width: 260px;
+}
+
+/* Prevent Ionic tap highlight on iOS */
+ion-item {
+  --ripple-color: var(--ion-color-primary);
+}
+
+/* Safe area support */
+ion-content::part(scroll) {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Remove default padding from IonPage */
+.ion-page {
+  background: var(--ion-background-color);
+}
+
+/* IonRefresher styling */
+ion-refresher {
+  z-index: 10;
+}
+
+/* Fix IonLoading backdrop */
+ion-loading .loading-wrapper {
+  border-radius: 12px;
+}
+
+/* Tailwind utility for safe-area bottom padding */
+@layer utilities {
+  .pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .pt-safe { padding-top:    max(1rem, env(safe-area-inset-top)); }
+}

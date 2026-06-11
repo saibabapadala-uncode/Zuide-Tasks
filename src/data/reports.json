@@ -1,0 +1,55 @@
+{
+  "dailyReports": [
+    {"date":"2026-06-11","employeeId":"emp-005","employeeName":"James Martinez","tasksCompleted":0,"hoursWorked":7,"tasksDetails":[{"taskId":"task-002","title":"Implement product listing API","status":"in_progress","hoursSpent":7}]},
+    {"date":"2026-06-11","employeeId":"emp-006","employeeName":"Priya Sharma","tasksCompleted":0,"hoursWorked":6,"tasksDetails":[{"taskId":"task-030","title":"Contact data sync service","status":"in_progress","hoursSpent":6}]},
+    {"date":"2026-06-11","employeeId":"emp-009","employeeName":"Tyler Brown","tasksCompleted":0,"hoursWorked":8,"tasksDetails":[{"taskId":"task-087","title":"Penetration testing","status":"in_progress","hoursSpent":8}]},
+    {"date":"2026-06-10","employeeId":"emp-005","employeeName":"James Martinez","tasksCompleted":0,"hoursWorked":8,"tasksDetails":[{"taskId":"task-002","title":"Implement product listing API","status":"in_progress","hoursSpent":8}]},
+    {"date":"2026-06-10","employeeId":"emp-007","employeeName":"David Lee","tasksCompleted":1,"hoursWorked":8,"tasksDetails":[{"taskId":"task-031","title":"Sales pipeline dashboard","status":"submitted","hoursSpent":8}]},
+    {"date":"2026-06-09","employeeId":"emp-010","employeeName":"Olivia Rodriguez","tasksCompleted":1,"hoursWorked":9,"tasksDetails":[{"taskId":"task-019","title":"Mobile app UI screens design","status":"submitted","hoursSpent":9}]}
+  ],
+  "weeklyReports": [
+    {"weekStart":"2026-06-09","weekEnd":"2026-06-13","employeeId":"emp-005","employeeName":"James Martinez","productivityTrend":[{"day":"Mon","tasksCompleted":0,"hoursWorked":8},{"day":"Tue","tasksCompleted":0,"hoursWorked":7},{"day":"Wed","tasksCompleted":0,"hoursWorked":8},{"day":"Thu","tasksCompleted":1,"hoursWorked":8},{"day":"Fri","tasksCompleted":0,"hoursWorked":7}],"completionRate":80,"totalTasksCompleted":1,"totalHoursWorked":38},
+    {"weekStart":"2026-06-09","weekEnd":"2026-06-13","employeeId":"emp-009","employeeName":"Tyler Brown","productivityTrend":[{"day":"Mon","tasksCompleted":0,"hoursWorked":8},{"day":"Tue","tasksCompleted":0,"hoursWorked":8},{"day":"Wed","tasksCompleted":1,"hoursWorked":9},{"day":"Thu","tasksCompleted":0,"hoursWorked":8},{"day":"Fri","tasksCompleted":1,"hoursWorked":8}],"completionRate":90,"totalTasksCompleted":2,"totalHoursWorked":41},
+    {"weekStart":"2026-06-02","weekEnd":"2026-06-06","employeeId":"emp-005","employeeName":"James Martinez","productivityTrend":[{"day":"Mon","tasksCompleted":1,"hoursWorked":8},{"day":"Tue","tasksCompleted":0,"hoursWorked":7},{"day":"Wed","tasksCompleted":1,"hoursWorked":8},{"day":"Thu","tasksCompleted":0,"hoursWorked":8},{"day":"Fri","tasksCompleted":1,"hoursWorked":6}],"completionRate":85,"totalTasksCompleted":3,"totalHoursWorked":37}
+  ],
+  "monthlyReports": [
+    {"month":"May","year":2026,"employeeId":"emp-005","employeeName":"James Martinez","department":"Engineering","performanceScore":88,"tasksCompleted":4,"tasksAssigned":5,"completionRate":80,"averageTaskTime":14.5},
+    {"month":"May","year":2026,"employeeId":"emp-009","employeeName":"Tyler Brown","department":"Engineering","performanceScore":91,"tasksCompleted":3,"tasksAssigned":3,"completionRate":100,"averageTaskTime":11.3},
+    {"month":"May","year":2026,"employeeId":"emp-010","employeeName":"Olivia Rodriguez","department":"Design","performanceScore":93,"tasksCompleted":2,"tasksAssigned":2,"completionRate":100,"averageTaskTime":24.5},
+    {"month":"April","year":2026,"employeeId":"emp-005","employeeName":"James Martinez","department":"Engineering","performanceScore":85,"tasksCompleted":3,"tasksAssigned":4,"completionRate":75,"averageTaskTime":16.0},
+    {"month":"April","year":2026,"employeeId":"emp-006","employeeName":"Priya Sharma","department":"Engineering","performanceScore":87,"tasksCompleted":2,"tasksAssigned":2,"completionRate":100,"averageTaskTime":17.0}
+  ],
+  "teamPerformance": [
+    {"departmentId":"dept-001","departmentName":"Engineering","totalEmployees":6,"totalTasks":45,"completedTasks":28,"averageProductivity":85,"topPerformer":"James Martinez"},
+    {"departmentId":"dept-002","departmentName":"Design","totalEmployees":5,"totalTasks":28,"completedTasks":22,"averageProductivity":84,"topPerformer":"Olivia Rodriguez"},
+    {"departmentId":"dept-003","departmentName":"Marketing","totalEmployees":5,"totalTasks":22,"completedTasks":16,"averageProductivity":82,"topPerformer":"Isabella Anderson"},
+    {"departmentId":"dept-004","departmentName":"Operations","totalEmployees":3,"totalTasks":18,"completedTasks":12,"averageProductivity":86,"topPerformer":"Charlotte Harris"}
+  ],
+  "chartData": {
+    "weeklyProductivity": [
+      {"day":"Mon","completed":5,"assigned":7},
+      {"day":"Tue","completed":7,"assigned":8},
+      {"day":"Wed","completed":9,"assigned":10},
+      {"day":"Thu","completed":6,"assigned":7},
+      {"day":"Fri","completed":8,"assigned":9},
+      {"day":"Sat","completed":2,"assigned":3},
+      {"day":"Sun","completed":1,"assigned":2}
+    ],
+    "taskDistribution": [
+      {"name":"Completed","value":32,"color":"#059669"},
+      {"name":"In Progress","value":20,"color":"#4f46e5"},
+      {"name":"Pending","value":28,"color":"#d97706"},
+      {"name":"Submitted","value":10,"color":"#0891b2"},
+      {"name":"Rejected","value":5,"color":"#dc2626"},
+      {"name":"Approved","value":5,"color":"#7c3aed"}
+    ],
+    "monthlyTrend": [
+      {"month":"Jan","productivity":78},
+      {"month":"Feb","productivity":82},
+      {"month":"Mar","productivity":80},
+      {"month":"Apr","productivity":86},
+      {"month":"May","productivity":91},
+      {"month":"Jun","productivity":88}
+    ]
+  }
+}

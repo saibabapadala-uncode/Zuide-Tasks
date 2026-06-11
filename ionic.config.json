@@ -1,0 +1,7 @@
+{
+  "name": "Zuide Tasks",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
