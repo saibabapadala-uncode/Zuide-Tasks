@@ -1,5 +1,6 @@
 import { Task, TaskFilters, Comment, ApprovalAction, DailyWorkSubmission } from '@/types'
 import tasksData from '@/data/tasks.json'
+import employeesData from '@/data/employees.json'
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -31,6 +32,16 @@ class TaskService {
 
     if (filters?.assignedTo) {
       tasks = tasks.filter(t => t.assignedTo === filters.assignedTo)
+    }
+
+    if (filters?.teamOf) {
+      const teamIds = new Set([
+        filters.teamOf,
+        ...(employeesData as any[])
+          .filter((e: any) => e.managerId === filters.teamOf)
+          .map((e: any) => e.id),
+      ])
+      tasks = tasks.filter(t => teamIds.has(t.assignedTo))
     }
 
     if (filters?.projectId) {
@@ -205,10 +216,19 @@ class TaskService {
     )
   }
 
-  getDashboardStats(employeeId?: string) {
-    const tasks = employeeId
-      ? mockTasks.filter(t => t.assignedTo === employeeId)
-      : mockTasks
+  getDashboardStats(employeeId?: string, teamOf?: string) {
+    let tasks = mockTasks
+    if (employeeId) {
+      tasks = mockTasks.filter(t => t.assignedTo === employeeId)
+    } else if (teamOf) {
+      const teamIds = new Set([
+        teamOf,
+        ...(employeesData as any[])
+          .filter((e: any) => e.managerId === teamOf)
+          .map((e: any) => e.id),
+      ])
+      tasks = mockTasks.filter(t => teamIds.has(t.assignedTo))
+    }
 
     const today = new Date().toISOString().split('T')[0]
 

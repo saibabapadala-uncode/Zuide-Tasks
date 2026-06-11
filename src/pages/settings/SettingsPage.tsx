@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
-  IonPage, IonContent, IonList, IonItem, IonLabel, IonToggle,
-  IonListHeader, IonNote, useIonToast,
+  IonPage, IonContent, IonToggle, useIonToast,
 } from '@ionic/react'
 import { MobileLayout } from '@/layouts/MobileLayout'
 import { useThemeStore } from '@/store'
@@ -40,118 +39,92 @@ export const SettingsPage: React.FC = () => {
       <MobileLayout title="Settings" showNotifications={false} />
 
       <IonContent>
-        <div className="bg-gray-50 dark:bg-gray-900 min-h-full pb-6">
-          {/* Appearance section */}
-          <IonList inset className="mt-4">
-            <IonListHeader>
-              <IonLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Appearance
-              </IonLabel>
-            </IonListHeader>
-
-            <IonItem
-              lines="inset"
-              style={{ '--background': 'var(--ion-card-background)' } as any}
-            >
-              <IonLabel>
-                <h2 className="text-sm font-medium text-gray-900 dark:text-white">Theme</h2>
-              </IonLabel>
-              <div slot="end" className="flex gap-2">
-                <button
-                  onClick={() => setDark(false)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    !isDark
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  Light
-                </button>
-                <button
-                  onClick={() => setDark(true)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    isDark
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  Dark
-                </button>
-                <button
-                  onClick={() => setDark(window.matchMedia('(prefers-color-scheme: dark)').matches)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
-                >
-                  Auto
-                </button>
+        <div className="bg-zinc-55 dark:bg-[#09090b] min-h-full pb-6">
+          <div className="p-4 space-y-4 max-w-2xl mx-auto">
+            
+            {/* Appearance Card */}
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-5">
+              <h3 className="text-xs font-bold text-zinc-450 dark:text-zinc-555 uppercase tracking-widest mb-4">Appearance</h3>
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-bold text-zinc-700 dark:text-zinc-250">Theme</span>
+                <div className="flex gap-1.5">
+                  <button
+                    onClick={() => setDark(false)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 ${
+                      !isDark
+                        ? 'bg-indigo-600 text-white shadow-sm'
+                        : 'bg-zinc-50 border border-zinc-150 dark:bg-zinc-950 dark:border-zinc-850 text-zinc-505 hover:text-zinc-700 dark:text-zinc-400'
+                    }`}
+                  >
+                    Light
+                  </button>
+                  <button
+                    onClick={() => setDark(true)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 ${
+                      isDark
+                        ? 'bg-indigo-600 text-white shadow-sm'
+                        : 'bg-zinc-50 border border-zinc-150 dark:bg-zinc-950 dark:border-zinc-850 text-zinc-505 hover:text-zinc-700 dark:text-zinc-400'
+                    }`}
+                  >
+                    Dark
+                  </button>
+                  <button
+                    onClick={() => setDark(window.matchMedia('(prefers-color-scheme: dark)').matches)}
+                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-zinc-50 border border-zinc-150 dark:bg-zinc-950 dark:border-zinc-850 text-zinc-505 hover:text-zinc-700 dark:text-zinc-400"
+                  >
+                    Auto
+                  </button>
+                </div>
               </div>
-            </IonItem>
-          </IonList>
+            </div>
 
-          {/* Notification preferences */}
-          <IonList inset className="mt-4">
-            <IonListHeader>
-              <IonLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Notifications
-              </IonLabel>
-            </IonListHeader>
+            {/* Notification Prefs Card */}
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-5">
+              <h3 className="text-xs font-bold text-zinc-450 dark:text-zinc-555 uppercase tracking-widest mb-4">Notifications</h3>
+              <div className="space-y-4">
+                {notifPrefs.map(pref => (
+                  <div key={pref.key} className="flex justify-between items-center gap-4 pb-4 border-b border-zinc-100/50 dark:border-zinc-850/40 last:border-0 last:pb-0">
+                    <div className="min-w-0">
+                      <h4 className="text-xs font-bold text-zinc-800 dark:text-zinc-200 leading-tight">{pref.label}</h4>
+                      <p className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 mt-0.5 leading-relaxed">{pref.description}</p>
+                    </div>
+                    <IonToggle
+                      checked={pref.enabled}
+                      onIonChange={() => togglePref(pref.key)}
+                      style={{ '--background-checked': '#4f46e5' } as any}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            {notifPrefs.map(pref => (
-              <IonItem
-                key={pref.key}
-                lines="inset"
-                style={{ '--background': 'var(--ion-card-background)' } as any}
+            {/* App Info Card */}
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-5">
+              <h3 className="text-xs font-bold text-zinc-455 dark:text-zinc-550 uppercase tracking-widest mb-4">About</h3>
+              <div className="space-y-3">
+                {[
+                  { label: 'Version', value: '1.0.0' },
+                  { label: 'Platform', value: 'Ionic PWA + Capacitor' },
+                  { label: 'Build', value: '2026.06.11' },
+                  { label: 'Environment', value: 'Production' },
+                ].map(item => (
+                  <div key={item.label} className="flex justify-between items-center py-2 border-b border-zinc-100/50 dark:border-zinc-850/40 last:border-0 pb-2 last:pb-0">
+                    <span className="text-xs font-semibold text-zinc-405 dark:text-zinc-500">{item.label}</span>
+                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-200">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Save Button */}
+            <div className="pt-2">
+              <button
+                onClick={handleSave}
+                className="w-full text-xs font-bold py-3 px-4 bg-indigo-600 hover:bg-indigo-705 text-white rounded-lg shadow-sm transition-all duration-150"
               >
-                <IonLabel>
-                  <h2 className="text-sm font-medium text-gray-900 dark:text-white">{pref.label}</h2>
-                  <IonNote className="text-xs text-gray-500 dark:text-gray-400">{pref.description}</IonNote>
-                </IonLabel>
-                <IonToggle
-                  slot="end"
-                  checked={pref.enabled}
-                  onIonChange={() => togglePref(pref.key)}
-                  color="primary"
-                />
-              </IonItem>
-            ))}
-          </IonList>
-
-          {/* App info */}
-          <IonList inset className="mt-4">
-            <IonListHeader>
-              <IonLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                About
-              </IonLabel>
-            </IonListHeader>
-
-            {[
-              { label: 'Version', value: '1.0.0' },
-              { label: 'Platform', value: 'Ionic PWA + Capacitor' },
-              { label: 'Build', value: '2026.06.11' },
-              { label: 'Environment', value: 'Production' },
-            ].map(item => (
-              <IonItem
-                key={item.label}
-                lines="inset"
-                style={{ '--background': 'var(--ion-card-background)' } as any}
-              >
-                <IonLabel>
-                  <span className="text-sm text-gray-900 dark:text-white">{item.label}</span>
-                </IonLabel>
-                <IonNote slot="end" className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {item.value}
-                </IonNote>
-              </IonItem>
-            ))}
-          </IonList>
-
-          {/* Save button */}
-          <div className="px-4 mt-6">
-            <button
-              onClick={handleSave}
-              className="w-full btn-primary py-3 font-semibold"
-            >
-              Save Settings
-            </button>
+                Save Settings
+              </button>
+            </div>
           </div>
         </div>
       </IonContent>

@@ -28,7 +28,7 @@ interface TaskStore {
   deleteComment: (taskId: string, commentId: string) => Promise<void>
   setFilters: (filters: TaskFilters) => void
   clearFilters: () => void
-  refreshStats: (employeeId?: string) => void
+  refreshStats: (employeeId?: string, teamOf?: string) => void
   clearError: () => void
 }
 
@@ -137,8 +137,8 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
   setFilters: (filters) => set({ filters }),
   clearFilters: () => set({ filters: {} }),
 
-  refreshStats: (employeeId) => {
-    const stats = taskService.getDashboardStats(employeeId)
+  refreshStats: (employeeId, teamOf) => {
+    const stats = taskService.getDashboardStats(employeeId, teamOf)
     set({ dashboardStats: stats })
   },
 

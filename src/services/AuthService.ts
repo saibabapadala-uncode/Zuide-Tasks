@@ -4,22 +4,38 @@ import employeesData from '@/data/employees.json'
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
+// Demo accounts: email → employee id mapping
+const DEMO_USERS: Record<string, string> = {
+  'manager@zuide.com':  'emp-001', // Alex Johnson — Admin
+  'lead@zuide.com':     'emp-002', // Sarah Chen — Manager
+  'employee@zuide.com': 'emp-005', // James Martinez — Employee
+}
+
 class AuthService {
   async login(credentials: LoginCredentials): Promise<AuthUser> {
     await delay(800)
 
-    const employee = (employeesData as any[]).find(
-      emp =>
-        emp.employeeId === credentials.employeeId &&
-        emp.email === credentials.email
-    )
+    let employee: any = null
+
+    // Demo account: email + any password >= 4 chars
+    const demoId = DEMO_USERS[credentials.email.toLowerCase().trim()]
+    if (demoId) {
+      employee = (employeesData as any[]).find(e => e.id === demoId)
+    }
+
+    // Regular login: match by email
+    if (!employee) {
+      employee = (employeesData as any[]).find(
+        e => e.email.toLowerCase() === credentials.email.toLowerCase().trim()
+      )
+    }
 
     if (!employee) {
-      throw new Error('Invalid Employee ID or Email. Please check your credentials.')
+      throw new Error('No account found with this email address.')
     }
 
     if (credentials.password.length < 4) {
-      throw new Error('Invalid password.')
+      throw new Error('Invalid password. Must be at least 4 characters.')
     }
 
     const user: AuthUser = {
@@ -35,7 +51,6 @@ class AuthService {
       token: `mock_token_${employee.id}_${Date.now()}`,
     }
 
-    // Uses StorageManager (localStorage now, Capacitor Preferences in native builds)
     await StorageManager.setJSON(STORAGE_KEYS.AUTH_USER, user)
     await StorageManager.set(STORAGE_KEYS.AUTH_TOKEN, user.token!)
 
@@ -64,8 +79,10 @@ class AuthService {
 
   async forgotPassword(email: string): Promise<void> {
     await delay(1000)
-    const employee = (employeesData as any[]).find(emp => emp.email === email)
-    if (!employee) throw new Error('No account found with this email address.')
+    const lower = email.toLowerCase().trim()
+    const isDemo = !!DEMO_USERS[lower]
+    const inEmployees = (employeesData as any[]).some(e => e.email.toLowerCase() === lower)
+    if (!isDemo && !inEmployees) throw new Error('No account found with this email address.')
   }
 
   async changePassword(request: ChangePasswordRequest): Promise<void> {

@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom'
 import {
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
   IonButtons, IonMenuButton, IonButton, IonIcon,
-  IonSearchbar, IonRefresher, IonRefresherContent, IonBadge,
+  IonRefresher, IonRefresherContent, IonBadge,
   useIonToast,
 } from '@ionic/react'
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
 import {
@@ -48,7 +49,9 @@ export const MyTasksPage: React.FC = () => {
   const [presentToast]                        = useIonToast()
 
   useEffect(() => {
-    const filters: TaskFilters = user?.role === 'employee' ? { assignedTo: user.id } : {}
+    const filters: TaskFilters =
+      user?.role === 'employee' ? { assignedTo: user.id } :
+      user?.role === 'manager'  ? { teamOf: user.id } : {}
     fetchTasks(filters)
   }, [user])
 
@@ -125,33 +128,47 @@ export const MyTasksPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="border-b border-zinc-200/50 dark:border-zinc-800/80">
         <IonToolbar>
-          <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle>My Tasks</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton className="text-zinc-500 dark:text-zinc-400" />
+          </IonButtons>
+          <IonTitle>
+            <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">My Tasks</span>
+          </IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={toggle}>
-              <IonIcon slot="icon-only" icon={isDark ? sunnyOutline : moonOutline} />
+            <IonButton onClick={toggle} title={isDark ? 'Light mode' : 'Dark mode'} className="text-zinc-500 dark:text-zinc-400">
+              <IonIcon slot="icon-only" icon={isDark ? sunnyOutline : moonOutline} style={{ fontSize: '18px' }} />
             </IonButton>
-            <IonButton onClick={() => history.push('/notifications')}>
-              <IonIcon slot="icon-only" icon={notificationsOutline} />
+            <IonButton onClick={() => history.push('/notifications')} style={{ position: 'relative' }} className="text-zinc-500 dark:text-zinc-400">
+              <IonIcon slot="icon-only" icon={notificationsOutline} style={{ fontSize: '18px' }} />
               {unreadCount > 0 && (
-                <IonBadge color="danger" style={{ position: 'absolute', top: 6, right: 6, fontSize: '10px', minWidth: 16, height: 16, padding: '0 3px', borderRadius: 8 }}>
+                <div className="absolute top-1 right-1 bg-rose-600 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border border-white dark:border-[#09090b] shadow-sm animate-fade-in">
                   {unreadCount > 9 ? '9+' : unreadCount}
-                </IonBadge>
+                </div>
               )}
             </IonButton>
           </IonButtons>
         </IonToolbar>
 
-        <IonToolbar>
-          <IonSearchbar
-            value={searchQuery}
-            onIonInput={ev => setSearchQuery(ev.detail.value || '')}
-            placeholder="Search tasks or projects..."
-            showCancelButton="focus"
-            style={{ '--background': 'var(--ion-item-background)' }}
-          />
+        <IonToolbar style={{ '--min-height': '48px' } as any}>
+          <div className="flex items-center gap-2 px-3 py-1.5">
+            <div className="relative flex-1 min-w-0">
+              <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search tasks or projects..."
+                className="w-full pl-8 pr-7 py-1.5 text-xs bg-zinc-105/50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 rounded-lg border border-zinc-200/50 dark:border-zinc-800 outline-none focus:ring-2 focus:ring-indigo-500/15 focus:border-indigo-500 transition-all duration-150"
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-650 dark:hover:text-zinc-350">
+                  <XMarkIcon className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
         </IonToolbar>
       </IonHeader>
 
@@ -160,25 +177,25 @@ export const MyTasksPage: React.FC = () => {
           <IonRefresherContent />
         </IonRefresher>
 
-        <div className="bg-gray-50 dark:bg-gray-900 min-h-full pb-8">
+        <div className="bg-zinc-50 dark:bg-[#09090b] min-h-full pb-8">
           {/* Summary + controls */}
           <div className="px-4 pt-3 pb-2 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <span className="text-xs font-semibold text-zinc-550 dark:text-zinc-450">
                 {totalTasks} task{totalTasks !== 1 ? 's' : ''} across {groups.length} project{groups.length !== 1 ? 's' : ''}
               </span>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={expandAll}
-                className="text-xs text-primary-600 dark:text-primary-400 font-medium hover:underline"
+                className="text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline"
               >
                 Expand all
               </button>
-              <span className="text-gray-300 dark:text-gray-600">·</span>
+              <span className="text-zinc-300 dark:text-zinc-800">·</span>
               <button
                 onClick={collapseAll}
-                className="text-xs text-gray-500 dark:text-gray-400 font-medium hover:underline"
+                className="text-xs text-zinc-500 dark:text-zinc-450 font-bold hover:underline"
               >
                 Collapse all
               </button>
@@ -187,7 +204,7 @@ export const MyTasksPage: React.FC = () => {
 
           {isLoading && tasks.length === 0 ? (
             <div className="flex items-center justify-center py-20">
-              <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : groups.length === 0 ? (
             <div className="p-4">
@@ -206,63 +223,68 @@ export const MyTasksPage: React.FC = () => {
                   : 0
 
                 return (
-                  <div key={group.projectId} className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                  <div key={group.projectId} className="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:border-zinc-350 dark:hover:border-zinc-750 transition-colors duration-150">
                     {/* Project header row */}
-                    <button
+                    <div
                       onClick={() => toggleGroup(group.projectId)}
-                      className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 transition-colors duration-150 text-left cursor-pointer"
                     >
                       {/* Color dot */}
-                      <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: group.color }} />
+                      <div className="w-2.5 h-2.5 rounded-full border border-black/5 dark:border-white/5 flex-shrink-0" style={{ backgroundColor: group.color }} />
 
                       {/* Project name + stats */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-sm font-bold text-gray-900 dark:text-white truncate">
+                          <span className="text-sm font-bold text-zinc-850 dark:text-zinc-200 truncate tracking-tight">
                             {group.projectName}
                           </span>
-                          <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 px-2 py-0.5 rounded-full font-medium flex-shrink-0">
+                          <span className="text-[10px] bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-full font-bold flex-shrink-0">
                             {group.stats.total} tasks
                           </span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
                           {/* Mini stat pills */}
                           {group.stats.pending > 0 && (
-                            <span className="text-xs text-yellow-600 dark:text-yellow-400">{group.stats.pending} pending</span>
+                            <span className="text-[11px] font-medium text-amber-605 dark:text-amber-400">{group.stats.pending} pending</span>
                           )}
                           {group.stats.inProgress > 0 && (
-                            <span className="text-xs text-blue-500">{group.stats.inProgress} active</span>
+                            <span className="text-[11px] font-medium text-indigo-600 dark:text-indigo-400">{group.stats.inProgress} active</span>
                           )}
                           {group.stats.completed > 0 && (
-                            <span className="text-xs text-green-500">{group.stats.completed} done</span>
+                            <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">{group.stats.completed} done</span>
                           )}
                         </div>
                         {/* Progress bar */}
                         <div className="flex items-center gap-2 mt-2">
-                          <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                          <div className="flex-1 h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all"
+                              className="h-full rounded-full transition-all duration-300"
                               style={{ width: `${progress}%`, backgroundColor: group.color }}
                             />
                           </div>
-                          <span className="text-xs text-gray-400 flex-shrink-0">{progress}%</span>
+                          <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 flex-shrink-0">{progress}%</span>
                         </div>
                       </div>
 
                       {/* Chevron + project link */}
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-2 flex-shrink-0" onClick={e => e.stopPropagation()}>
                         <button
-                          onClick={e => { e.stopPropagation(); history.push(`/projects/${group.projectId}`) }}
-                          className="text-xs text-primary-500 hover:text-primary-600 font-medium px-2 py-1 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+                          onClick={() => history.push(`/projects/${group.projectId}`)}
+                          className="text-xs text-indigo-600 dark:text-indigo-400 font-bold px-2 py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors duration-150"
                         >
                           Details
                         </button>
-                        <IonIcon
-                          icon={isExpanded ? chevronDownOutline : chevronForwardOutline}
-                          className="text-gray-400 text-lg"
-                        />
+                        <button
+                          onClick={() => toggleGroup(group.projectId)}
+                          className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-450 dark:text-zinc-500 transition-colors duration-150"
+                        >
+                          <IonIcon
+                            icon={isExpanded ? chevronDownOutline : chevronForwardOutline}
+                            style={{ fontSize: '16px', display: 'block' }}
+                          />
+                        </button>
                       </div>
-                    </button>
+                    </div>
 
                     {/* Task list */}
                     <AnimatePresence initial={false}>
@@ -275,7 +297,7 @@ export const MyTasksPage: React.FC = () => {
                           transition={{ duration: 0.2, ease: 'easeInOut' }}
                           style={{ overflow: 'hidden' }}
                         >
-                          <div className="border-t border-gray-100 dark:border-gray-700/50">
+                          <div className="border-t border-zinc-100 dark:border-zinc-800/60">
                             {group.tasks.map((task, idx) => {
                               const isOverdue = new Date(task.dueDate) < new Date() &&
                                 task.status !== 'completed' && task.status !== 'approved'
@@ -283,40 +305,42 @@ export const MyTasksPage: React.FC = () => {
                                 <div
                                   key={task.id}
                                   onClick={() => history.push(`/tasks/${task.id}`)}
-                                  className={`flex items-start gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors ${
-                                    idx < group.tasks.length - 1 ? 'border-b border-gray-100 dark:border-gray-700/30' : ''
+                                  className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 transition-colors duration-150 ${
+                                    idx < group.tasks.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-800/40' : ''
                                   }`}
                                 >
                                   {/* Status indicator dot */}
-                                  <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${
-                                    task.status === 'completed' || task.status === 'approved' ? 'bg-green-500' :
-                                    task.status === 'in_progress'  ? 'bg-blue-500' :
-                                    task.status === 'submitted'    ? 'bg-purple-500' :
-                                    task.status === 'rejected'     ? 'bg-red-500' :
-                                    'bg-yellow-400'
-                                  }`} />
+                                  <div className="flex-shrink-0">
+                                    <div className={`w-2 h-2 rounded-full border border-black/5 dark:border-white/5 ${
+                                      task.status === 'completed' || task.status === 'approved' ? 'bg-emerald-500' :
+                                      task.status === 'in_progress'  ? 'bg-indigo-500' :
+                                      task.status === 'submitted'    ? 'bg-violet-500' :
+                                      task.status === 'rejected'     ? 'bg-rose-500' :
+                                      'bg-amber-500'
+                                    }`} />
+                                  </div>
 
                                   {/* Task info */}
                                   <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1">
+                                    <p className="text-sm font-semibold text-zinc-850 dark:text-zinc-200 line-clamp-1 tracking-tight">
                                       {task.title}
                                     </p>
-                                    <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                                      <span className="text-xs font-mono text-gray-400">{task.taskId}</span>
-                                      <span className="text-gray-300 dark:text-gray-600">·</span>
-                                      <span className="text-xs text-gray-500 dark:text-gray-400">{task.assignedToName}</span>
+                                    <div className="flex items-center gap-1.5 mt-0.5">
+                                      <span className="text-[10px] font-mono font-semibold text-zinc-400 dark:text-zinc-500">{task.taskId}</span>
+                                      <span className="text-zinc-300 dark:text-zinc-700">·</span>
+                                      <span className="text-xs font-medium text-zinc-500 dark:text-zinc-450">{task.assignedToName}</span>
                                     </div>
                                   </div>
 
                                   {/* Right side badges */}
-                                  <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                                  <div className="flex items-center gap-3 flex-shrink-0">
                                     <div className="flex items-center gap-1.5">
                                       <PriorityBadge priority={task.priority} />
                                       <StatusBadge status={task.status} />
                                     </div>
-                                    <span className={`text-xs ${isOverdue ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
-                                      {format(new Date(task.dueDate), 'MMM dd')}
-                                      {isOverdue && ' !'}
+                                    <span className={`text-xs font-semibold tracking-tight ${isOverdue ? 'text-rose-500 font-semibold' : 'text-zinc-400'}`}>
+                                      {format(new Date(task.dueDate), 'MMM d')}
+                                      {isOverdue && <span className="ml-0.5 text-rose-500 font-bold">!</span>}
                                     </span>
                                   </div>
                                 </div>

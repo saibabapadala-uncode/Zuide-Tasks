@@ -32,27 +32,28 @@ export const ForgotPasswordPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className="min-h-full bg-gradient-to-br from-primary-950 via-primary-900 to-indigo-950 flex items-center justify-center p-4">
+        <div className="min-h-full bg-zinc-50 dark:bg-[#09090b] flex items-center justify-center p-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="w-full max-w-md"
           >
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8">
+            <div className="bg-white dark:bg-[#18181b] rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] p-8">
               <button
                 onClick={() => history.goBack()}
-                className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-6"
+                className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 mb-6 uppercase tracking-wider transition-colors"
               >
                 ← Back to Login
               </button>
 
               {sent ? (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center py-6">
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
                     <span className="text-3xl">✅</span>
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Email Sent!</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-50 mb-1.5 tracking-tight">Email Sent!</h2>
+                  <p className="text-xs text-zinc-550 dark:text-zinc-400 leading-relaxed font-medium">
                     Password reset instructions have been sent to your email address.
                   </p>
                   <button
@@ -65,18 +66,18 @@ export const ForgotPasswordPage: React.FC = () => {
               ) : (
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">✉️</span>
+                    <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30 rounded-2xl flex items-center justify-center mx-auto mb-3.5 shadow-md shadow-indigo-500/10">
+                      <span className="text-xl">✉️</span>
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Forgot Password?</h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-50 tracking-tight">Forgot Password?</h2>
+                    <p className="text-xs text-zinc-550 dark:text-zinc-450 mt-1 font-medium leading-relaxed">
                       Enter your email and we'll send reset instructions.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                      <label className="block text-[11px] font-bold text-zinc-400 dark:text-zinc-550 uppercase tracking-widest mb-1.5">
                         Email Address
                       </label>
                       <input
@@ -89,14 +90,14 @@ export const ForgotPasswordPage: React.FC = () => {
                         className="input-field"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+                        <p className="mt-1 text-xs text-rose-500 font-semibold">{errors.email.message}</p>
                       )}
                     </div>
 
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full btn-primary py-3 font-semibold disabled:opacity-60"
+                      className="w-full btn-primary py-3 font-semibold disabled:opacity-65"
                     >
                       {isLoading ? 'Sending...' : 'Send Reset Link'}
                     </button>
@@ -110,3 +111,4 @@ export const ForgotPasswordPage: React.FC = () => {
     </IonPage>
   )
 }
+

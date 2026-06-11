@@ -69,6 +69,7 @@ export interface TaskFilters {
   status?: TaskStatus[]
   priority?: Priority[]
   assignedTo?: string
+  teamOf?: string
   projectId?: string
   dueDateFrom?: string
   dueDateTo?: string

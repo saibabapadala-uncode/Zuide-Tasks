@@ -100,40 +100,61 @@ export const ProjectDetailPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="border-b border-zinc-200/50 dark:border-zinc-800/80">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/projects" />
+            <IonBackButton defaultHref="/projects" className="text-zinc-500 dark:text-zinc-400" />
           </IonButtons>
-          <IonTitle className="text-sm">{project.name}</IonTitle>
+          <IonTitle>
+            <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{project.name}</span>
+          </IonTitle>
           <IonButtons slot="end">
-            <IonBadge color={statusColor} style={{ marginRight: 12, fontSize: '11px' }}>
+            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border mr-3 ${
+              project.status === 'completed'
+                ? 'bg-emerald-50/80 border-emerald-100 text-emerald-700 dark:bg-emerald-950/20 dark:border-emerald-900/30 dark:text-emerald-400'
+                : project.status === 'in_progress'
+                ? 'bg-indigo-50/80 border-indigo-100 text-indigo-700 dark:bg-indigo-950/20 dark:border-indigo-900/30 dark:text-indigo-400'
+                : 'bg-amber-50/80 border-amber-100 text-amber-700 dark:bg-amber-950/20 dark:border-amber-900/30 dark:text-amber-400'
+            }`}>
               {statusLabel}
-            </IonBadge>
+            </span>
           </IonButtons>
         </IonToolbar>
 
-        <IonToolbar>
-          <IonSegment
-            scrollable
-            value={activeTab}
-            onIonChange={ev => setActiveTab(ev.detail.value as ProjectTab)}
-            style={{ '--background': 'transparent' }}
-          >
-            <IonSegmentButton value="overview" style={{ minWidth: 'auto' }}>
-              <IonLabel>Overview</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="tasks" style={{ minWidth: 'auto' }}>
-              <IonLabel>Tasks</IonLabel>
-              <IonBadge color="medium" style={{ fontSize: '10px' }}>{stats.total}</IonBadge>
-            </IonSegmentButton>
-            <IonSegmentButton value="team" style={{ minWidth: 'auto' }}>
-              <IonLabel>Team</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="activity" style={{ minWidth: 'auto' }}>
-              <IonLabel>Activity</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
+        {/* Tab Selection */}
+        <IonToolbar style={{ '--min-height': '40px' } as any} className="bg-white dark:bg-[#09090b]">
+          <div className="flex px-3 gap-2 overflow-x-auto no-scrollbar">
+            {(['overview', 'tasks', 'team', 'activity'] as ProjectTab[]).map(tab => {
+              const active = activeTab === tab
+              const label = tab.charAt(0).toUpperCase() + tab.slice(1)
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`relative px-3 py-2 text-xs font-bold transition-all duration-150 flex items-center gap-1.5 whitespace-nowrap ${
+                    active
+                      ? 'text-indigo-600 dark:text-indigo-400'
+                      : 'text-zinc-450 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'
+                  }`}
+                >
+                  {label}
+                  {tab === 'tasks' && (
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                      active ? 'bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500'
+                    }`}>
+                      {stats.total}
+                    </span>
+                  )}
+                  {active && (
+                    <motion.div
+                      layoutId="activeProjectTab"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 dark:bg-indigo-400"
+                    />
+                  )}
+                </button>
+              )
+            })}
+          </div>
         </IonToolbar>
       </IonHeader>
 
@@ -142,84 +163,82 @@ export const ProjectDetailPage: React.FC = () => {
           <IonRefresherContent />
         </IonRefresher>
 
-        <div className="bg-gray-50 dark:bg-gray-900 min-h-full pb-8">
+        <div className="bg-zinc-50 dark:bg-[#09090b] min-h-full pb-8">
 
           {/* ── OVERVIEW ── */}
           {activeTab === 'overview' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-4 space-y-4">
               {/* Project header card */}
-              <IonCard className="m-0 overflow-hidden">
-                <div className="h-2 rounded-t-xl" style={{ backgroundColor: project.color }} />
-                <IonCardContent>
+              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div className="h-1 w-full" style={{ backgroundColor: project.color }} />
+                <div className="p-5">
                   <div className="flex items-start gap-3 mb-3">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl"
-                      style={{ backgroundColor: `${project.color}20` }}
+                      className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 text-xl"
+                      style={{ backgroundColor: `${project.color}15`, color: project.color }}
                     >
                       📁
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h2 className="text-base font-bold text-gray-900 dark:text-white">{project.name}</h2>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      <h2 className="text-base font-bold text-zinc-850 dark:text-zinc-200 tracking-tight leading-tight">{project.name}</h2>
+                      <p className="text-xs font-semibold text-zinc-405 dark:text-zinc-500 mt-1">
                         {project.managerName} · {(project.tags || []).join(', ')}
                       </p>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{project.description}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium mb-4">{project.description}</p>
 
                   {/* Progress bar */}
                   <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Progress</span>
-                    <span className="text-sm font-bold text-primary-600">{stats.progress}%</span>
+                    <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-550">Progress</span>
+                    <span className="text-xs font-bold text-indigo-650 dark:text-indigo-400">{stats.progress}%</span>
                   </div>
-                  <IonProgressBar
-                    value={stats.progress / 100}
-                    color="primary"
-                    style={{ '--background': '#e2e8f0', borderRadius: 4, height: 8 } as any}
-                  />
-                  <div className="flex justify-between mt-1.5">
-                    <span className="text-xs text-gray-400">{stats.completed} completed</span>
-                    <span className="text-xs text-gray-400">{stats.total} total tasks</span>
+                  <div className="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full transition-all duration-300" style={{ width: `${stats.progress}%`, backgroundColor: project.color }} />
                   </div>
-                </IonCardContent>
-              </IonCard>
+                  <div className="flex justify-between mt-1.5 text-[10px] font-bold text-zinc-400 dark:text-zinc-500">
+                    <span>{stats.completed} completed</span>
+                    <span>{stats.total} total tasks</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Stats grid */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {[
-                  { label: 'Pending',     value: stats.pending,    color: 'from-yellow-500 to-yellow-600' },
-                  { label: 'In Progress', value: stats.inProgress, color: 'from-blue-500 to-blue-600' },
-                  { label: 'Submitted',   value: stats.submitted,  color: 'from-purple-500 to-purple-600' },
-                  { label: 'Completed',   value: stats.completed,  color: 'from-green-500 to-green-600' },
-                  { label: 'Rejected',    value: stats.rejected,   color: 'from-red-500 to-red-600' },
-                  { label: 'Members',     value: teamMembers.length, color: 'from-indigo-500 to-indigo-600' },
+                  { label: 'Pending',     value: stats.pending,    textColor: 'text-amber-600 dark:text-amber-450' },
+                  { label: 'In Progress', value: stats.inProgress, textColor: 'text-indigo-600 dark:text-indigo-400' },
+                  { label: 'Submitted',   value: stats.submitted,  textColor: 'text-violet-650 dark:text-violet-400' },
+                  { label: 'Completed',   value: stats.completed,  textColor: 'text-emerald-600 dark:text-emerald-450' },
+                  { label: 'Rejected',    value: stats.rejected,   textColor: 'text-rose-600 dark:text-rose-450' },
+                  { label: 'Members',     value: teamMembers.length, textColor: 'text-zinc-700 dark:text-zinc-200' },
                 ].map(s => (
-                  <div key={s.label} className={`bg-gradient-to-br ${s.color} rounded-2xl p-3 text-white`}>
-                    <p className="text-2xl font-black">{s.value}</p>
-                    <p className="text-xs text-white/80 mt-0.5 leading-tight">{s.label}</p>
+                  <div key={s.label} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl p-3.5 shadow-sm">
+                    <p className={`text-xl font-bold tracking-tight ${s.textColor}`}>{s.value}</p>
+                    <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-550 uppercase tracking-wider mt-1 leading-tight">{s.label}</p>
                   </div>
                 ))}
               </div>
 
               {/* Project details */}
-              <IonCard className="m-0">
-                <IonCardContent>
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Details</h3>
+              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-5">
+                <h3 className="text-xs font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-widest mb-4">Details</h3>
+                <div className="space-y-3">
                   {[
-                    { label: 'Start Date', value: format(new Date(project.startDate), 'MMM dd, yyyy') },
-                    { label: 'Due Date',   value: format(new Date(project.dueDate),   'MMM dd, yyyy') },
+                    { label: 'Start Date', value: format(new Date(project.startDate), 'MMM d, yyyy') },
+                    { label: 'Due Date',   value: format(new Date(project.dueDate),   'MMM d, yyyy') },
                     { label: 'Priority',   value: project.priority },
                     { label: 'Status',     value: project.status.replace('_', ' ') },
                     { label: 'Manager',    value: project.managerName },
                     { label: 'Team Size',  value: `${teamMembers.length} members` },
                   ].map(item => (
-                    <div key={item.label} className="flex justify-between items-center py-2.5 border-b border-gray-50 dark:border-gray-700/50 last:border-0">
-                      <span className="text-xs text-gray-400">{item.label}</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">{item.value}</span>
+                    <div key={item.label} className="flex justify-between items-center py-2 border-b border-zinc-105/50 dark:border-zinc-850/40 last:border-0 pb-2 last:pb-0">
+                      <span className="text-xs font-semibold text-zinc-450 dark:text-zinc-500">{item.label}</span>
+                      <span className="text-xs font-bold text-zinc-700 dark:text-zinc-200 capitalize">{item.value}</span>
                     </div>
                   ))}
-                </IonCardContent>
-              </IonCard>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -227,18 +246,18 @@ export const ProjectDetailPage: React.FC = () => {
           {activeTab === 'tasks' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {/* Stats row */}
-              <div className="px-4 py-3 flex gap-2 overflow-x-auto border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800/50">
+              <div className="px-4 py-3 flex gap-2 overflow-x-auto no-scrollbar border-b border-zinc-200/50 dark:border-zinc-800/80 bg-white dark:bg-zinc-900">
                 {[
-                  { label: 'Total',      value: stats.total,      color: 'text-gray-700 dark:text-gray-300' },
-                  { label: 'Pending',    value: stats.pending,    color: 'text-yellow-600' },
-                  { label: 'In Progress',value: stats.inProgress, color: 'text-blue-600' },
-                  { label: 'Submitted',  value: stats.submitted,  color: 'text-purple-600' },
-                  { label: 'Completed',  value: stats.completed,  color: 'text-green-600' },
-                  { label: 'Rejected',   value: stats.rejected,   color: 'text-red-600' },
+                  { label: 'Total',      value: stats.total,      color: 'text-zinc-700 dark:text-zinc-350' },
+                  { label: 'Pending',    value: stats.pending,    color: 'text-amber-600 dark:text-amber-400' },
+                  { label: 'Active',     value: stats.inProgress, color: 'text-indigo-600 dark:text-indigo-400' },
+                  { label: 'Submitted',  value: stats.submitted,  color: 'text-violet-650 dark:text-violet-405' },
+                  { label: 'Completed',  value: stats.completed,  color: 'text-emerald-600 dark:text-emerald-450' },
+                  { label: 'Rejected',   value: stats.rejected,   color: 'text-rose-600 dark:text-rose-450' },
                 ].map(s => (
-                  <div key={s.label} className="flex-shrink-0 text-center px-3">
-                    <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
-                    <p className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{s.label}</p>
+                  <div key={s.label} className="flex-shrink-0 text-center px-4 border-r border-zinc-100 dark:border-zinc-850 last:border-0">
+                    <p className={`text-lg font-bold tracking-tight ${s.color}`}>{s.value}</p>
+                    <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 whitespace-nowrap mt-0.5">{s.label}</p>
                   </div>
                 ))}
               </div>
@@ -252,7 +271,7 @@ export const ProjectDetailPage: React.FC = () => {
               ) : (
                 <>
                   {/* Table header */}
-                  <div className="hidden sm:grid sm:grid-cols-[minmax(0,2.5fr)_minmax(0,1fr)_80px_110px_80px] gap-3 px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/80 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  <div className="hidden sm:grid sm:grid-cols-[minmax(0,2.5fr)_minmax(0,1fr)_80px_110px_80px] gap-3 px-4 py-2.5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest sticky top-0 z-10">
                     <span>Task</span>
                     <span>Assigned To</span>
                     <span>Priority</span>
@@ -266,23 +285,23 @@ export const ProjectDetailPage: React.FC = () => {
                     return (
                       <motion.div
                         key={task.id}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: Math.min(idx * 0.02, 0.3) }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: Math.min(idx * 0.015, 0.25) }}
                         onClick={() => history.push(`/tasks/${task.id}`)}
-                        className="grid grid-cols-1 sm:grid-cols-[minmax(0,2.5fr)_minmax(0,1fr)_80px_110px_80px] gap-1 sm:gap-3 px-4 py-3 border-b border-gray-100 dark:border-gray-700/50 bg-white dark:bg-gray-800/40 hover:bg-primary-50/40 dark:hover:bg-primary-900/10 cursor-pointer transition-colors"
+                        className="grid grid-cols-1 sm:grid-cols-[minmax(0,2.5fr)_minmax(0,1fr)_80px_110px_80px] gap-1 sm:gap-3 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/40 bg-white dark:bg-[#18181b]/30 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 cursor-pointer transition-colors duration-150"
                       >
                         <div className="min-w-0">
-                          <p className="text-xs font-mono text-gray-400">{task.taskId}</p>
-                          <p className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1 mt-0.5">{task.title}</p>
-                          <div className="flex items-center gap-2 mt-1.5 sm:hidden">
-                            <span className="text-xs text-gray-500">{task.assignedToName}</span>
+                          <p className="text-[10px] font-mono text-zinc-400 dark:text-zinc-550 font-semibold">{task.taskId}</p>
+                          <p className="text-sm font-semibold text-zinc-850 dark:text-zinc-200 line-clamp-1 mt-1 tracking-tight">{task.title}</p>
+                          <div className="flex items-center gap-2 mt-2 sm:hidden flex-wrap">
+                            <span className="text-xs text-zinc-550 dark:text-zinc-400 font-semibold">{task.assignedToName}</span>
                             <PriorityBadge priority={task.priority} />
                             <StatusBadge status={task.status} />
                           </div>
                         </div>
-                        <div className="hidden sm:flex items-center">
-                          <span className="text-xs text-gray-700 dark:text-gray-300 truncate">{task.assignedToName}</span>
+                        <div className="hidden sm:flex items-center min-w-0">
+                          <span className="text-xs font-medium text-zinc-650 dark:text-zinc-400 truncate">{task.assignedToName}</span>
                         </div>
                         <div className="hidden sm:flex items-center">
                           <PriorityBadge priority={task.priority} />
@@ -291,9 +310,9 @@ export const ProjectDetailPage: React.FC = () => {
                           <StatusBadge status={task.status} />
                         </div>
                         <div className="hidden sm:flex items-center">
-                          <span className={`text-xs font-medium ${isOverdue ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'}`}>
-                            {format(new Date(task.dueDate), 'MMM dd')}
-                            {isOverdue && <span className="ml-1">!</span>}
+                          <span className={`text-xs font-semibold tracking-tight ${isOverdue ? 'text-rose-500 font-semibold' : 'text-zinc-500 dark:text-zinc-400'}`}>
+                            {format(new Date(task.dueDate), 'MMM d')}
+                            {isOverdue && <span className="ml-0.5 text-rose-500 font-bold">!</span>}
                           </span>
                         </div>
                       </motion.div>
@@ -308,60 +327,61 @@ export const ProjectDetailPage: React.FC = () => {
           {activeTab === 'team' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-4 space-y-3">
               {teamMembers.length === 0 ? (
-                <div className="text-center py-12 text-gray-400">No team members found.</div>
+                <div className="text-center py-12 text-zinc-400 dark:text-zinc-500">No team members found.</div>
               ) : teamMembers.map((emp: any) => {
                 const memberTasks  = tasks.filter(t => t.assignedTo === emp.id)
                 const doneTasks    = memberTasks.filter(t => t.status === 'completed' || t.status === 'approved').length
                 const activeTasks  = memberTasks.filter(t => t.status === 'in_progress').length
                 const isManager    = emp.id === project.managerId
                 return (
-                  <IonCard key={emp.id} className="m-0">
-                    <IonCardContent>
-                      <div className="flex items-center gap-3">
-                        <IonAvatar style={{ width: 48, height: 48, flexShrink: 0 }}>
-                          <img
-                            src={emp.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${emp.name}`}
-                            alt={emp.name}
-                          />
-                        </IonAvatar>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{emp.name}</p>
-                            {isManager && (
-                              <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 px-1.5 py-0.5 rounded-full font-medium flex-shrink-0">
-                                Manager
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{emp.designation}</p>
-                          <div className="flex items-center gap-3 mt-1.5">
-                            <span className="text-xs text-blue-500">{activeTasks} active</span>
-                            <span className="text-xs text-green-500">{doneTasks} completed</span>
-                            <span className="text-xs text-gray-400">{memberTasks.length} total</span>
-                          </div>
+                  <div key={emp.id} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-4 hover:border-zinc-300 dark:hover:border-zinc-700/80 transition-colors duration-150">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border border-zinc-200 dark:border-zinc-800">
+                        <img
+                          src={emp.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${emp.name}`}
+                          alt={emp.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-bold text-zinc-850 dark:text-zinc-200 truncate tracking-tight">{emp.name}</p>
+                          {isManager && (
+                            <span className="text-[9px] bg-indigo-50 border border-indigo-100 text-indigo-700 dark:bg-indigo-950/20 dark:border-indigo-900/30 dark:text-indigo-400 px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 uppercase tracking-wider">
+                              Manager
+                            </span>
+                          )}
                         </div>
-                        <div className="text-center flex-shrink-0">
-                          <p className="text-lg font-bold text-primary-600">{emp.productivityScore}%</p>
-                          <p className="text-xs text-gray-400">Score</p>
+                        <p className="text-xs text-zinc-405 dark:text-zinc-500 mt-0.5 font-medium">{emp.designation}</p>
+                        <div className="flex items-center gap-3 mt-1.5 text-[11px] font-semibold">
+                          <span className="text-indigo-600 dark:text-indigo-400">{activeTasks} active</span>
+                          <span className="text-zinc-350 dark:text-zinc-800">·</span>
+                          <span className="text-emerald-600 dark:text-emerald-400">{doneTasks} completed</span>
+                          <span className="text-zinc-350 dark:text-zinc-800">·</span>
+                          <span className="text-zinc-400 dark:text-zinc-500">{memberTasks.length} total</span>
                         </div>
                       </div>
+                      <div className="text-center flex-shrink-0 border-l border-zinc-100 dark:border-zinc-800 pl-4">
+                        <p className="text-lg font-black text-indigo-600 dark:text-indigo-400 leading-tight">{emp.productivityScore}%</p>
+                        <p className="text-[9px] font-bold text-zinc-405 dark:text-zinc-500 uppercase tracking-wider mt-0.5">Productivity</p>
+                      </div>
+                    </div>
 
-                      {/* Mini progress for member tasks */}
-                      {memberTasks.length > 0 && (
-                        <div className="mt-3">
-                          <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-primary-600 rounded-full transition-all"
-                              style={{ width: `${Math.round((doneTasks / memberTasks.length) * 100)}%` }}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-400 mt-1">
-                            {Math.round((doneTasks / memberTasks.length) * 100)}% task completion on this project
-                          </p>
+                    {/* Mini progress for member tasks */}
+                    {memberTasks.length > 0 && (
+                      <div className="mt-4">
+                        <div className="h-1 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-indigo-600 rounded-full transition-all duration-300"
+                            style={{ width: `${Math.round((doneTasks / memberTasks.length) * 100)}%` }}
+                          />
                         </div>
-                      )}
-                    </IonCardContent>
-                  </IonCard>
+                        <p className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 mt-1.5">
+                          {Math.round((doneTasks / memberTasks.length) * 100)}% task completion on this project
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 )
               })}
             </motion.div>
@@ -379,28 +399,27 @@ export const ProjectDetailPage: React.FC = () => {
                   icon={ClipboardDocumentListIcon}
                 />
               ) : (
-                <div className="space-y-0">
+                <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 rounded-xl shadow-sm p-5 space-y-4">
                   {allActivity.map((activity, idx) => (
-                    <div key={`${activity.id}-${idx}`} className="flex gap-3 pb-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-2.5 h-2.5 rounded-full bg-primary-400 flex-shrink-0 mt-1.5" />
-                        {idx < allActivity.length - 1 && (
-                          <div className="w-px flex-1 bg-gray-200 dark:bg-gray-700 mt-1" />
-                        )}
-                      </div>
+                    <div key={`${activity.id}-${idx}`} className="flex gap-3 text-xs relative">
+                      {idx < allActivity.length - 1 && (
+                        <div className="absolute left-[5px] top-[14px] bottom-[-20px] w-[1px] bg-zinc-200 dark:bg-zinc-850" />
+                      )}
+                      <div className="w-2.5 h-2.5 rounded-full bg-indigo-550 dark:bg-indigo-650 mt-1 flex-shrink-0 border-2 border-white dark:border-zinc-900 z-10" />
                       <div className="flex-1 min-w-0 pb-1">
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{activity.description}</p>
-                        <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                        <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-200 leading-snug">{activity.description}</p>
+                        <div className="flex items-center gap-1.5 mt-1 font-medium">
                           <button
                             onClick={() => history.push(`/tasks/${activity.taskId}`)}
-                            className="text-xs font-mono text-primary-500 hover:underline"
+                            className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 hover:underline font-bold"
                           >
                             {activity.taskId}
                           </button>
-                          <span className="text-xs text-gray-400 truncate">{activity.taskTitle}</span>
+                          <span className="text-zinc-300 dark:text-zinc-800">·</span>
+                          <span className="text-[11px] text-zinc-400 dark:text-zinc-500 truncate">{activity.taskTitle}</span>
                         </div>
-                        <p className="text-xs text-gray-400 mt-0.5">
-                          {activity.performedByName} · {format(new Date(activity.timestamp), 'MMM dd, HH:mm')}
+                        <p className="text-[10px] text-zinc-400 dark:text-zinc-550 mt-0.5 font-bold">
+                          {activity.performedByName} · {format(new Date(activity.timestamp), 'MMM d, HH:mm')}
                         </p>
                       </div>
                     </div>

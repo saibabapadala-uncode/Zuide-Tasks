@@ -10,86 +10,86 @@
 :root {
   --ion-font-family: 'Inter', system-ui, sans-serif;
 
-  /* Primary color */
+  /* Primary — indigo-600 */
   --ion-color-primary:          #4f46e5;
   --ion-color-primary-rgb:      79, 70, 229;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-shade:    #4338ca;
   --ion-color-primary-tint:     #6366f1;
 
-  /* Secondary */
-  --ion-color-secondary:        #06b6d4;
-  --ion-color-secondary-rgb:    6, 182, 212;
+  /* Secondary — zinc-500 */
+  --ion-color-secondary:        #71717a;
+  --ion-color-secondary-rgb:    113, 113, 122;
   --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-shade:  #0597b0;
-  --ion-color-secondary-tint:   #22d3ee;
+  --ion-color-secondary-shade:  #52525b;
+  --ion-color-secondary-tint:   #a1a1aa;
 
-  /* Success */
+  /* Success — emerald-600 */
   --ion-color-success:          #059669;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-shade:    #047857;
   --ion-color-success-tint:     #10b981;
 
-  /* Warning */
+  /* Warning — amber-600 */
   --ion-color-warning:          #d97706;
   --ion-color-warning-contrast: #ffffff;
   --ion-color-warning-shade:    #b45309;
   --ion-color-warning-tint:     #f59e0b;
 
-  /* Danger */
-  --ion-color-danger:           #dc2626;
+  /* Danger — rose-600 */
+  --ion-color-danger:           #e11d48;
   --ion-color-danger-contrast:  #ffffff;
-  --ion-color-danger-shade:     #b91c1c;
-  --ion-color-danger-tint:      #ef4444;
+  --ion-color-danger-shade:     #be123c;
+  --ion-color-danger-tint:      #f43f5e;
 
   /* Backgrounds */
-  --ion-background-color:       #f8fafc;
-  --ion-background-color-rgb:   248, 250, 252;
-  --ion-text-color:             #0f172a;
-  --ion-text-color-rgb:         15, 23, 42;
+  --ion-background-color:       #fafafa;
+  --ion-background-color-rgb:   250, 250, 250;
+  --ion-text-color:             #09090b;
+  --ion-text-color-rgb:         9, 9, 11;
 
   /* Toolbar/surfaces */
   --ion-toolbar-background:     #ffffff;
-  --ion-toolbar-border-color:   #e2e8f0;
+  --ion-toolbar-border-color:   #e4e4e7;
   --ion-item-background:        #ffffff;
   --ion-card-background:        #ffffff;
-  --ion-border-color:           #e2e8f0;
+  --ion-border-color:           #e4e4e7;
 
   /* Tab bar */
   --ion-tab-bar-background:     #ffffff;
-  --ion-tab-bar-border-color:   #e2e8f0;
+  --ion-tab-bar-border-color:   #e4e4e7;
 }
 
 /* ─────────────────────────────────────────────
    Ionic CSS Variables — Dark Mode
    ───────────────────────────────────────────── */
 body.dark {
-  --ion-background-color:       #0f172a;
-  --ion-background-color-rgb:   15, 23, 42;
-  --ion-text-color:             #f1f5f9;
-  --ion-text-color-rgb:         241, 245, 249;
+  --ion-background-color:       #09090b;
+  --ion-background-color-rgb:   9, 9, 11;
+  --ion-text-color:             #f4f4f5;
+  --ion-text-color-rgb:         244, 244, 245;
 
-  --ion-toolbar-background:     #1e293b;
-  --ion-toolbar-border-color:   #334155;
-  --ion-item-background:        #1e293b;
-  --ion-card-background:        #1e293b;
-  --ion-border-color:           #334155;
+  --ion-toolbar-background:     #09090b;
+  --ion-toolbar-border-color:   #18181b;
+  --ion-item-background:        #18181b;
+  --ion-card-background:        #18181b;
+  --ion-border-color:           #27272a;
 
-  --ion-tab-bar-background:     #1e293b;
-  --ion-tab-bar-border-color:   #334155;
+  --ion-tab-bar-background:     #09090b;
+  --ion-tab-bar-border-color:   #18181b;
 
-  --ion-color-step-50:   #1e293b;
-  --ion-color-step-100:  #253347;
-  --ion-color-step-150:  #2c3e53;
-  --ion-color-step-200:  #334155;
-  --ion-color-step-250:  #3a4d68;
-  --ion-color-step-300:  #475569;
-  --ion-color-step-400:  #64748b;
-  --ion-color-step-500:  #94a3b8;
-  --ion-color-step-600:  #cbd5e1;
-  --ion-color-step-700:  #e2e8f0;
-  --ion-color-step-800:  #f1f5f9;
-  --ion-color-step-900:  #f8fafc;
+  --ion-color-step-50:   #09090b;
+  --ion-color-step-100:  #18181b;
+  --ion-color-step-150:  #202024;
+  --ion-color-step-200:  #27272a;
+  --ion-color-step-250:  #3f3f46;
+  --ion-color-step-300:  #52525b;
+  --ion-color-step-400:  #71717a;
+  --ion-color-step-500:  #a1a1aa;
+  --ion-color-step-600:  #d4d4d8;
+  --ion-color-step-700:  #e4e4e7;
+  --ion-color-step-800:  #f4f4f5;
+  --ion-color-step-900:  #fafafa;
   --ion-color-step-950:  #ffffff;
 }
 
@@ -110,69 +110,78 @@ body.dark {
     color: var(--ion-text-color);
   }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { @apply bg-transparent; }
-  ::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-600 rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-400 dark:bg-gray-500; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-200 dark:bg-gray-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-300 dark:bg-gray-600; }
 }
 
 /* ─────────────────────────────────────────────
    Tailwind component layer
    ───────────────────────────────────────────── */
 @layer components {
-  /* Card */
+  /* Card — clean white surface */
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700;
+    @apply bg-white dark:bg-[#18181b] rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-[0_1px_3px_0_rgba(0,0,0,0.02)] transition-all duration-200;
+  }
+  .card-hover {
+    @apply card hover:border-indigo-500/30 dark:hover:border-indigo-500/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)] dark:hover:shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:-translate-y-[1px];
   }
   .stat-card {
-    @apply card p-5 flex items-center gap-4 hover:shadow-md transition-shadow cursor-default;
+    @apply card p-4 hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)] transition-all cursor-default;
   }
 
   /* Buttons */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] transition-all duration-150 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50;
   }
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-white hover:bg-zinc-50 border border-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800/85 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 font-medium py-2 px-4 rounded-lg shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] transition-all duration-150 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50;
   }
   .btn-danger {
-    @apply bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+    @apply bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white font-medium py-2 px-4 rounded-lg shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] transition-all duration-150 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/50;
   }
 
   /* Form */
   .input-field {
-    @apply w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors text-sm;
+    @apply w-full px-3.5 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-150 text-sm;
+  }
+  .filter-select {
+    @apply text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-2.5 py-1.5 text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-150 cursor-pointer;
   }
 
-  /* Badges */
-  .badge { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium; }
-  .priority-critical { @apply bg-red-100    text-red-800    dark:bg-red-900/30    dark:text-red-400; }
-  .priority-high     { @apply bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400; }
-  .priority-medium   { @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400; }
-  .priority-low      { @apply bg-green-100  text-green-800  dark:bg-green-900/30  dark:text-green-400; }
+  /* Badges — muted enterprise palette */
+  .badge { @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium leading-none; }
 
-  .status-pending     { @apply bg-gray-100   text-gray-700   dark:bg-gray-700    dark:text-gray-300; }
-  .status-in_progress { @apply bg-blue-100   text-blue-700   dark:bg-blue-900/30  dark:text-blue-400; }
-  .status-submitted   { @apply bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400; }
-  .status-approved    { @apply bg-green-100  text-green-700  dark:bg-green-900/30 dark:text-green-400; }
-  .status-rejected    { @apply bg-red-100    text-red-700    dark:bg-red-900/30   dark:text-red-400; }
-  .status-completed   { @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400; }
+  /* Status badges */
+  .status-pending     { @apply bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20; }
+  .status-in_progress { @apply bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20; }
+  .status-submitted   { @apply bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20; }
+  .status-approved    { @apply bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20; }
+  .status-rejected    { @apply bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20; }
+  .status-completed   { @apply bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20; }
+
+  /* Priority badges */
+  .priority-critical { @apply bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20; }
+  .priority-high     { @apply bg-orange-500/10 text-orange-700 dark:text-orange-400 border border-orange-500/20; }
+  .priority-medium   { @apply bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20; }
+  .priority-low      { @apply bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border border-zinc-200/50 dark:border-zinc-700/50; }
 
   /* Table */
-  .table-header { @apply text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider py-3 px-4; }
-  .table-cell   { @apply py-4 px-4 text-sm text-gray-700 dark:text-gray-300; }
-  .table-row    { @apply border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors; }
+  .table-header { @apply text-left text-[11px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider py-3 px-4 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50; }
+  .table-cell   { @apply py-3 px-4 text-sm text-zinc-700 dark:text-zinc-300; }
+  .table-row    { @apply border-b border-zinc-100 dark:border-zinc-850 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40 transition-colors duration-150; }
 
-  /* Page */
-  .page-title    { @apply text-2xl font-bold text-gray-900 dark:text-white; }
-  .page-subtitle { @apply text-sm text-gray-500 dark:text-gray-400 mt-1; }
+  /* Section header */
+  .section-title    { @apply text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider; }
+  .page-title    { @apply text-xl font-semibold text-gray-900 dark:text-white; }
+  .page-subtitle { @apply text-sm text-gray-500 dark:text-gray-400 mt-0.5; }
 }
 
 /* ─────────────────────────────────────────────
    Ionic component overrides
    ───────────────────────────────────────────── */
 
-/* Make IonContent background transparent so Tailwind bg classes work */
 ion-content {
   --background: transparent;
   --padding-start: 0;
@@ -189,7 +198,12 @@ ion-toolbar {
 }
 
 ion-header::after {
-  display: none; /* remove default bottom border — we handle it via CSS vars */
+  display: none;
+}
+
+/* Subtle shadow under header instead */
+ion-header {
+  box-shadow: 0 1px 0 var(--ion-toolbar-border-color);
 }
 
 ion-item {
@@ -205,32 +219,30 @@ ion-list {
 
 ion-card {
   --background: var(--ion-card-background);
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  border-radius: 0.5rem;
+  box-shadow: none;
   border: 1px solid var(--ion-border-color);
   margin: 0;
 }
 
 ion-searchbar {
   --background: var(--ion-item-background);
-  --border-radius: 0.75rem;
+  --border-radius: 0.5rem;
   --box-shadow: none;
-  --border: 1px solid var(--ion-border-color);
   padding: 0;
 }
 
 ion-segment {
-  --background: var(--ion-background-color);
-  border-radius: 0.75rem;
+  --background: transparent;
 }
 
 ion-segment-button {
   --color: var(--ion-color-step-400);
   --color-checked: var(--ion-color-primary);
-  --border-radius: 0.5rem;
-  font-size: 0.8rem;
+  --border-radius: 0.375rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  min-height: 36px;
+  min-height: 32px;
   text-transform: none;
 }
 
@@ -241,36 +253,37 @@ ion-badge {
 }
 
 ion-menu {
-  --width: 260px;
+  --width: 252px;
 }
 
-/* Prevent Ionic tap highlight on iOS */
 ion-item {
   --ripple-color: var(--ion-color-primary);
 }
 
-/* Safe area support */
 ion-content::part(scroll) {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Remove default padding from IonPage */
 .ion-page {
   background: var(--ion-background-color);
 }
 
-/* IonRefresher styling */
 ion-refresher {
   z-index: 10;
 }
 
-/* Fix IonLoading backdrop */
 ion-loading .loading-wrapper {
   border-radius: 12px;
 }
 
-/* Tailwind utility for safe-area bottom padding */
+/* ─────────────────────────────────────────────
+   Utilities
+   ───────────────────────────────────────────── */
 @layer utilities {
   .pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
   .pt-safe { padding-top:    max(1rem, env(safe-area-inset-top)); }
+
+  /* Hide scrollbar while keeping scroll functionality */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }

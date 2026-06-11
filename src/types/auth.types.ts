@@ -1,8 +1,8 @@
 export interface LoginCredentials {
-  employeeId: string
   email: string
   password: string
   rememberMe?: boolean
+  employeeId?: string
 }
 
 export interface AuthUser {

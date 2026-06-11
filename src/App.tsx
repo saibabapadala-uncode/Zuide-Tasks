@@ -8,6 +8,7 @@ import { AppMenu } from './layouts/AppMenu'
 import { PrivateRoute } from './routes/PrivateRoute'
 import { PageLoader } from './components/LoadingState'
 import { DailyWorkSubmissionModal } from './components/DailyWorkSubmissionModal'
+import { ConfirmDialog } from './components/ConfirmDialog'
 
 import { LoginPage }           from './pages/auth/LoginPage'
 import { ForgotPasswordPage }  from './pages/auth/ForgotPasswordPage'
@@ -27,6 +28,7 @@ import { useAuthStore, useThemeStore, useTaskStore } from './store'
 import { AppManager } from './capacitor/AppManager'
 import { syncService } from './services/SyncService'
 import { pushNotificationService } from './services/PushNotificationService'
+import { InstallPrompt } from './components/InstallPrompt'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +46,7 @@ const AppInner: React.FC = () => {
   const { tasks } = useTaskStore()
   const [isInitialized, setIsInitialized] = useState(false)
   const [showDailyModal, setShowDailyModal] = useState(false)
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const [presentToast] = useIonToast()
 
   useEffect(() => {
@@ -96,7 +99,12 @@ const AppInner: React.FC = () => {
     }
   }, [])
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
+    setShowLogoutConfirm(true)
+  }
+
+  const handleConfirmLogout = () => {
+    setShowLogoutConfirm(false)
     setShowDailyModal(true)
   }
 
@@ -135,6 +143,7 @@ const AppInner: React.FC = () => {
         </IonSplitPane>
       </IonReactRouter>
 
+      <InstallPrompt />
       <DailyWorkSubmissionModal
         isOpen={showDailyModal}
         completedTaskIds={completedTaskIds}
@@ -144,6 +153,16 @@ const AppInner: React.FC = () => {
           setShowDailyModal(false)
           await logout()
         }}
+      />
+      <ConfirmDialog
+        isOpen={showLogoutConfirm}
+        title="Confirm Logout"
+        message="Are you sure you want to log out of WorkStream Pro?"
+        confirmLabel="Log Out"
+        cancelLabel="Cancel"
+        variant="danger"
+        onConfirm={handleConfirmLogout}
+        onCancel={() => setShowLogoutConfirm(false)}
       />
     </IonApp>
   )
